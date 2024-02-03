@@ -45,6 +45,22 @@ const CategoryItem = ({ title, items, headerColor }) => {
 };
 
 const Inventory = () => {
+  const getAvailabilityTextStyle = (status) => {
+    switch (status) {
+      case "In- stock":
+        return "green";
+
+      case "Out of stock":
+        return "red";
+
+      case "Low stock":
+        return "orange";
+
+      default:
+        return {};
+    }
+  };
+
   const columns = [
     {
       title: "Product",
@@ -75,6 +91,9 @@ const Inventory = () => {
       title: "Availability",
       dataIndex: "availability",
       key: "availability",
+      render: (text, record, index) => (
+        <p style={{ color: getAvailabilityTextStyle(text) }}>{text}</p>
+      ),
     },
   ];
 
