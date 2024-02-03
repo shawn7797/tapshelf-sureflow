@@ -5,13 +5,22 @@ import {
   Input,
   InputNumber,
   Modal,
+  Select,
   Upload,
   message,
 } from "antd";
 import React, { useState } from "react";
 import "./styles/add-product-modal.style.less";
+import { productCategories } from "./constants";
 
 const { Dragger } = Upload;
+const { Option } = Select;
+
+const categoryOptions = productCategories.map((i, index) => (
+  <Option key={index} value={i}>
+    {i}
+  </Option>
+));
 
 const AddProductModal = ({ visible, setVisible, onAddProduct }) => {
   const [image, setImage] = useState();
@@ -41,6 +50,7 @@ const AddProductModal = ({ visible, setVisible, onAddProduct }) => {
 
   const handleCancel = () => {
     setVisible(false);
+    setImage();
     resetFields();
   };
 
@@ -49,6 +59,10 @@ const AddProductModal = ({ visible, setVisible, onAddProduct }) => {
   };
 
   const handleFinish = (values) => {
+    if (!image) {
+      return message.warning("Please upload an image!");
+    }
+
     onAddProduct({ ...values, date: date });
     handleCancel();
     message.success("Product added successfully!");
@@ -162,12 +176,14 @@ const AddProductModal = ({ visible, setVisible, onAddProduct }) => {
             },
           ]}
         >
-          <Input
+          <Select
+            allowClear
             placeholder="Select product category"
-            name="category"
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          />
+            onChange={(value) => setCategory(value)}
+          >
+            {categoryOptions}
+          </Select>
         </Form.Item>
         <Form.Item
           name="price"
