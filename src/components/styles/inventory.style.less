@@ -1,0 +1,118 @@
+.inventory-wrapper {
+    & .inventory-top-section-wrapper {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: #fff;
+
+        & h2 {
+            font-size: 1.3rem;
+            color: #61666e;
+        }
+
+        & .categories-container {
+            margin-top: 1rem;
+
+            & h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0;
+            }
+
+            & .ant-col {
+
+                & .category-item-wrapper {
+                    & .ant-row {
+                        & .ant-col {
+                            & h3 {
+                                color: #61666e;
+                                margin: 0.5rem 0;
+                            }
+
+                            & p {
+                                color: #8f8f8f;
+                            }
+                        }
+                    }
+                }
+
+                & .ant-divider {
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    & .inventory-bottom-section-wrapper {
+        width: 100%;
+        padding: 1rem;
+        margin-top: 1.5rem;
+        border-radius: 8px;
+        background-color: #fff;
+
+        & .products-wrapper {
+            & .products-header-wrapper {
+
+                & h2 {
+                    margin: 0;
+                    font-size: 1.3rem;
+                    color: #61666e;
+                }
+
+                & .buttons-col-wrapper {
+
+                    & .ant-btn:not(:last-child) {
+                        margin-right: 1rem;
+                    }
+
+                    & .add-product-btn {
+                        color: #fff;
+                        background-color: #1365d9;
+                    }
+                }
+            }
+
+            & .products-table {
+                height: 80%;
+                margin-top: 1.5rem;
+
+                & .ant-table-thead>tr>th {
+                    color: #8f8f8f;
+                    background-color: #fff;
+                }
+
+                & .ant-table-tbody>tr>td {
+                    color: #61666e;
+                    background-color: #fff;
+                }
+
+                & .ant-table-pagination.ant-pagination {
+                    width: 100%;
+                    margin-bottom: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #fff;
+                    position: relative;
+
+                    & .prev-btn {
+                        position: absolute;
+                        left: 0;
+                    }
+
+                    & .next-btn {
+                        position: absolute;
+                        right: 0;
+                    }
+
+                    & .ant-pagination-total-text {
+                        margin: 0;
+                    }
+                }
+
+                & .ant-table-body {
+                    min-height: 210px;
+                }
+            }
+        }
+    }
+}
