@@ -1,0 +1,77 @@
+.add-product-modal {
+    & .ant-modal-content {
+        border-radius: 5px;
+        box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.08);
+        background-color: #fff;
+
+        & .ant-modal-body {
+
+            & h2 {
+                color: #61666e;
+            }
+
+            & .ant-form {
+
+                & .image-form-item>.ant-row {
+                    justify-content: center;
+                }
+
+                & .image-upload-wrapper {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    & .dashed-dragger-container {
+                        width: 5rem;
+                        height: 5rem;
+                        border-radius: 12px;
+                        border: 2px dashed #8f8f8f;
+                        margin-right: 1rem;
+
+                        & .ant-upload-btn {
+                            padding: 5px;
+                            display: flex;
+                            justify-content: center;
+                        }
+                    }
+
+                    & .dragger-text-wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+
+                        & p {
+                            margin: 0;
+                            color: #8f8f8f;
+                        }
+                    }
+                }
+
+                & label {
+                    color: #61666e;
+                }
+
+                & .footer-buttons-wrapper {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    & .ant-form-item {
+                        margin: 0;
+                    }
+
+                    & .discard-btn {
+                        margin-right: 1rem;
+                        color: #61666e;
+                    }
+
+                    & .add-product-btn {
+                        color: #fff;
+                        background-color: #1365d9;
+                    }
+                }
+            }
+        }
+    }
+}

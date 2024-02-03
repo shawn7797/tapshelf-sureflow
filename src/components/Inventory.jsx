@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles/inventory.style.less";
 import { Button, Col, Divider, Row, Table } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
+import AddProductModal from "./AddProductModal";
+import data from "./data";
 
 const CategoryItem = ({ title, items, headerColor }) => {
   return (
@@ -45,6 +47,9 @@ const CategoryItem = ({ title, items, headerColor }) => {
 };
 
 const Inventory = () => {
+  const [addProduct, setAddProduct] = useState(false);
+  const [tableData, setTableData] = useState(data);
+
   const getAvailabilityTextStyle = (status) => {
     switch (status) {
       case "In- stock":
@@ -79,8 +84,8 @@ const Inventory = () => {
     },
     {
       title: "Threshold Value",
-      dataIndex: "value",
-      key: "value",
+      dataIndex: "thresholdValue",
+      key: "thresholdValue",
     },
     {
       title: "Expiry Date",
@@ -97,92 +102,7 @@ const Inventory = () => {
     },
   ];
 
-  const data = [
-    {
-      key: 0,
-      product: "Maggi",
-      price: "430",
-      quantity: "43 Packets",
-      value: "12 Packets",
-      date: "11/12/22",
-      availability: "In- stock",
-    },
-    {
-      key: 1,
-      product: "Bru",
-      price: "7257",
-      quantity: "22 Packets",
-      value: "12 Packets",
-      date: "21/12/22",
-      availability: "Out of stock",
-    },
-    {
-      key: 2,
-      product: "Red Bull",
-      price: "405",
-      quantity: "36 Packets",
-      value: "9 Packets",
-      date: "5/12/22",
-      availability: "In- stock",
-    },
-    {
-      key: 3,
-      product: "Bourn Vita",
-      price: "502",
-      quantity: "14 Packets",
-      value: "6 Packets",
-      date: "8/12/22",
-      availability: "Out of stock",
-    },
-    {
-      key: 4,
-      product: "Horlicks",
-      price: "530",
-      quantity: "5 Packets",
-      value: "5 Packets",
-      date: "9/1/23",
-      availability: "In- stock",
-    },
-    {
-      key: 5,
-      product: "Harpic",
-      price: "605",
-      quantity: "10 Packets",
-      value: "5 Packets",
-      date: "9/1/23",
-      availability: "In- stock",
-    },
-    {
-      key: 6,
-      product: "Ariel",
-      price: "408",
-      quantity: "23 Packets",
-      value: "7 Packets",
-      date: "15/12/23",
-      availability: "Out of stock",
-    },
-    {
-      key: 7,
-      product: "Scotch Brite",
-      price: "359",
-      quantity: "43 Packets",
-      value: "8 Packets",
-      date: "6/6/23",
-      availability: "In- stock",
-    },
-    {
-      key: 8,
-      product: "Coca cola",
-      price: "205",
-      quantity: "41 Packets",
-      value: "10 Packets",
-      date: "11/11/22",
-      availability: "Low stock",
-    },
-  ];
-
   const itemRender = (current, type, originalElement) => {
-    console.log(type);
     if (type === "prev") {
       return <Button className="prev-btn">Previous</Button>;
     }
@@ -190,6 +110,16 @@ const Inventory = () => {
       return <Button className="next-btn">Next</Button>;
     }
     return null;
+  };
+
+  const handleAddProduct = (product) => {
+    let productData = {
+      key: product.productId,
+      product: product.name,
+      availability: "In- stock",
+      ...product,
+    };
+    setTableData([productData, ...tableData]);
   };
 
   return (
@@ -279,7 +209,11 @@ const Inventory = () => {
               <h2>Products</h2>
             </Col>
             <Col className="buttons-col-wrapper">
-              <Button className="add-product-btn" type="primary">
+              <Button
+                className="add-product-btn"
+                type="primary"
+                onClick={() => setAddProduct(true)}
+              >
                 Add Product
               </Button>
               <Button className="filter-btn" icon={<FilterOutlined />}>
@@ -291,7 +225,7 @@ const Inventory = () => {
           <Table
             className="products-table"
             columns={columns}
-            dataSource={data}
+            dataSource={tableData}
             scroll={{
               y: 220,
             }}
@@ -312,6 +246,11 @@ const Inventory = () => {
           />
         </div>
       </div>
+      <AddProductModal
+        visible={addProduct}
+        setVisible={setAddProduct}
+        onAddProduct={handleAddProduct}
+      />
     </div>
   );
 };
