@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles/inventory.style.less";
-import { Button, Col, Divider, Row, Table } from "antd";
-import { FilterOutlined } from "@ant-design/icons";
+import { Button, Col, Divider, Popconfirm, Row, Table } from "antd";
+import { DeleteOutlined, FilterOutlined } from "@ant-design/icons";
 import AddProductModal from "./AddProductModal";
 import data from "./data";
 
@@ -66,6 +66,15 @@ const Inventory = () => {
     }
   };
 
+  const handleDeleteProduct = (rowKey) => {
+    const index = tableData?.findIndex((i) => i.key === rowKey);
+    if (index >= 0) {
+      const tempData = [...tableData];
+      tempData.splice(index, 1);
+      setTableData([...tempData]);
+    }
+  };
+
   const columns = [
     {
       title: "Product",
@@ -98,6 +107,23 @@ const Inventory = () => {
       key: "availability",
       render: (text, record, index) => (
         <p style={{ color: getAvailabilityTextStyle(text) }}>{text}</p>
+      ),
+    },
+    {
+      key: "delete",
+      width: 50,
+      render: (text, record, index) => (
+        <Popconfirm
+          title="Are you sure to delete?"
+          onConfirm={() => handleDeleteProduct(record.key)}
+          onCancel={() => {}}
+        >
+          <DeleteOutlined
+            style={{ color: "#ff4d4f" }}
+            key="Delete"
+            name="Delete"
+          />
+        </Popconfirm>
       ),
     },
   ];
